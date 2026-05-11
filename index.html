@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alexi Valadez — Photography</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Design Tokens ─────────────────────────────── */
+    :root {
+      --cream:      #f4ede0;
+      --sand:       #e0d0b8;
+      --tan:        #c4a882;
+      --brown:      #7b5535;
+      --brown-dk:   #4a3220;
+      --sage:       #8fa888;
+      --sage-lt:    #b8cdb0;
+      --turquoise:  #4e9c9c;
+      --turq-dk:    #336868;
+      --white:      #faf7f2;
+      --text-main:  #3a2b1c;
+      --text-soft:  #7a6248;
+
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-body:    'Outfit', sans-serif;
+      --nav-h:      64px;
+      --ease:       0.3s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-body);
+      background: var(--white);
+      color: var(--text-main);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVIGATION ─────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(244, 237, 224, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 56px;
+    }
+
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.45rem;
+      font-weight: 400;
+      color: var(--brown-dk);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+
+    .nav-logo span { color: var(--turquoise); }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 38px;
+    }
+
+    .nav-links a {
+      font-family: var(--ff-body);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brown);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 3px;
+      transition: color var(--ease);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--turquoise);
+      transition: width var(--ease);
+    }
+
+    .nav-links a:hover { color: var(--brown-dk); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--brown-dk); }
+
+    /* ─── BANNER ─────────────────────────────────────── */
+    .banner {
+      width: 100%;
+      height: 350px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(
+        130deg,
+        #5a3a20 0%,
+        #7b5535 28%,
+        #4e9c9c 58%,
+        #8fa888 78%,
+        #c4a882 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.8s ease both;
+    }
+
+    .banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 48px, rgba(255,255,255,0.03) 48px, rgba(255,255,255,0.03) 49px),
+        repeating-linear-gradient(90deg, transparent, transparent 48px, rgba(255,255,255,0.03) 48px, rgba(255,255,255,0.03) 49px);
+    }
+
+    .banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.3) 100%);
+    }
+
+    .banner-text {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+    }
+
+    .banner-text h1 {
+      font-family: var(--ff-display);
+      font-size: clamp(2.6rem, 6vw, 4.6rem);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-shadow: 0 2px 28px rgba(0,0,0,0.22);
+    }
+
+    .banner-text p {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.72);
+    }
+
+    /* ─── SPLIT HERO — Layout B ──────────────────────── */
+    .split-hero {
+      display: grid;
+      grid-template-columns: 500px 1fr;
+      background: var(--white);
+      animation: fadeUp 0.9s ease 0.2s both;
+    }
+
+    /* LEFT — Photo placeholder */
+    .split-photo {
+      width: 500px;
+      max-width: 100%;
+      min-height: 400px;
+      background: #ccc5b8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .split-photo::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, #d8cfc4 0%, #bfad96 50%, #a89070 100%);
+    }
+
+    .photo-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      border: 1px dashed rgba(255,255,255,0.45);
+      padding: 32px 48px;
+    }
+
+    .photo-inner svg {
+      width: 42px;
+      height: 42px;
+      stroke: rgba(255,255,255,0.65);
+    }
+
+    .photo-inner span {
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      font-weight: 400;
+    }
+
+    /* RIGHT — Text */
+    .split-content {
+      padding: 72px 68px 72px 76px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 1px solid var(--sand);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--turquoise);
+      margin-bottom: 18px;
+      font-weight: 400;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--turquoise);
+    }
+
+    .split-content h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(1.9rem, 2.6vw, 2.75rem);
+      font-weight: 400;
+      color: var(--brown-dk);
+      line-height: 1.22;
+      margin-bottom: 24px;
+    }
+
+    .split-content p {
+      font-size: 0.97rem;
+      color: var(--text-soft);
+      line-height: 1.85;
+      max-width: 440px;
+      margin-bottom: 14px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      margin-top: 22px;
+      padding: 13px 36px;
+      background: var(--turquoise);
+      color: #fff;
+      font-family: var(--ff-body);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1.5px solid var(--turquoise);
+      align-self: flex-start;
+      transition: background var(--ease), border-color var(--ease);
+    }
+
+    .btn-primary:hover {
+      background: var(--turq-dk);
+      border-color: var(--turq-dk);
+    }
+
+    /* ─── FEATURE CARDS ──────────────────────────────── */
+    .features {
+      background: var(--cream);
+      padding: 72px 56px;
+      border-top: 1px solid var(--sand);
+    }
+
+    .features-label {
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .features-label::before,
+    .features-label::after {
+      content: '';
+      width: 60px;
+      height: 1px;
+      background: var(--sage-lt);
+    }
+
+    .cards-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--sand);
+      padding: 46px 36px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--ease), box-shadow var(--ease), transform var(--ease);
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--tan), var(--turquoise));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover {
+      border-color: var(--tan);
+      box-shadow: 0 10px 36px rgba(90, 58, 32, 0.09);
+      transform: translateY(-5px);
+    }
+
+    .card:hover::after { transform: scaleX(1); }
+
+    .card-icon {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 18px;
+      line-height: 1;
+    }
+
+    .card h3 {
+      font-family: var(--ff-display);
+      font-size: 1.22rem;
+      font-weight: 400;
+      color: var(--brown-dk);
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      font-size: 0.88rem;
+      color: var(--text-soft);
+      line-height: 1.78;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    footer {
+      background: var(--brown-dk);
+      padding: 36px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 3px solid var(--turquoise);
+    }
+
+    .footer-left .footer-brand {
+      font-family: var(--ff-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--sand);
+      letter-spacing: 0.03em;
+    }
+
+    .footer-left .footer-brand span { color: var(--turquoise); }
+
+    .footer-left .footer-copy {
+      margin-top: 5px;
+      font-size: 0.76rem;
+      color: #9a7a58;
+      letter-spacing: 0.06em;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    .footer-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9a7a58;
+      text-decoration: none;
+      transition: color var(--ease);
+    }
+
+    .footer-links a:hover { color: var(--turquoise); }
+
+    /* ─── ANIMATIONS ─────────────────────────────────── */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 860px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 18px; }
+      .nav-links a { font-size: 0.72rem; letter-spacing: 0.1em; }
+
+      .split-hero { grid-template-columns: 1fr; }
+      .split-photo { width: 100%; min-height: 280px; }
+      .split-content { padding: 44px 24px; border-left: none; border-top: 1px solid var(--sand); }
+
+      .features { padding: 52px 20px; }
+      .cards-row { grid-template-columns: 1fr; gap: 14px; }
+
+      footer { flex-direction: column; gap: 24px; text-align: center; padding: 32px 20px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ 1. NAVIGATION ════════════════════════════════ -->
+  <nav>
+    <a class="nav-logo" href="index.html">Alexi Valadez<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══ 2. BANNER (100% wide, 350px tall) ════════════ -->
+  <div class="banner">
+    <div class="banner-text">
+      <h1>Alexi Valadez</h1>
+      <p>Photography &nbsp;&middot;&nbsp; Visual Storytelling &nbsp;&middot;&nbsp; Portfolio</p>
+    </div>
+  </div>
+
+  <!-- ══ 3. SPLIT SECTION — Layout B ══════════════════ -->
+  <!--     Image LEFT · Text RIGHT                      -->
+  <section class="split-hero">
+
+    <!-- Left column: Photo placeholder 500×400 -->
+    <div class="split-photo">
+      <div class="photo-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span>Photo</span>
+      </div>
+    </div>
+
+    <!-- Right column: Welcome text -->
+    <div class="split-content">
+      <div class="eyebrow">Welcome</div>
+      <h2>Capturing moments that are worth holding onto.</h2>
+      <p>
+        Hi, I'm Alexi — a photographer with a love for open landscapes, honest
+        portraits, and the kind of light that makes you stop and look twice.
+        This is where I share my work, my process, and my perspective.
+      </p>
+      <p>
+        From wide desert horizons to quiet everyday details, every image here
+        is made with care and a genuine passion for the craft.
+      </p>
+      <a href="portfolio.html" class="btn-primary">See My Work</a>
+    </div>
+
+  </section>
+
+  <!-- ══ 4. FEATURE HIGHLIGHT CARDS ════════════════════ -->
+  <section class="features">
+    <div class="features-label">What I Offer</div>
+
+    <div class="cards-row">
+
+      <div class="card">
+        <span class="card-icon">🏔️</span>
+        <h3>Landscape Photography</h3>
+        <p>Wide-open skies, rugged terrain, and golden-hour light — I photograph the natural world with patience and an unhurried eye.</p>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">🎞️</span>
+        <h3>Portrait Sessions</h3>
+        <p>Relaxed, authentic portraits that show who you really are — no stiff poses, just real people in beautiful, natural light.</p>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">🖼️</span>
+        <h3>Fine Art Prints</h3>
+        <p>Purchase limited-edition prints of my favorite images, sized and finished to bring the outdoors into your home.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ 5. FOOTER ═════════════════════════════════════ -->
+  <footer>
+    <div class="footer-left">
+      <div class="footer-brand">Alexi Valadez<span>.</span></div>
+      <p class="footer-copy">&copy; 2025 Alexi Valadez. All rights reserved.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>

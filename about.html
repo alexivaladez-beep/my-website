@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Alexi Valadez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Design Tokens (identical to Home) ─────────── */
+    :root {
+      --cream:      #f4ede0;
+      --sand:       #e0d0b8;
+      --tan:        #c4a882;
+      --brown:      #7b5535;
+      --brown-dk:   #4a3220;
+      --sage:       #8fa888;
+      --sage-lt:    #b8cdb0;
+      --turquoise:  #4e9c9c;
+      --turq-dk:    #336868;
+      --white:      #faf7f2;
+      --text-main:  #3a2b1c;
+      --text-soft:  #7a6248;
+
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-body:    'Outfit', sans-serif;
+      --nav-h:      64px;
+      --ease:       0.3s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-body);
+      background: var(--white);
+      color: var(--text-main);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVIGATION (identical to Home) ─────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(244, 237, 224, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 56px;
+    }
+
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.45rem;
+      font-weight: 400;
+      color: var(--brown-dk);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+
+    .nav-logo span { color: var(--turquoise); }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 38px;
+    }
+
+    .nav-links a {
+      font-family: var(--ff-body);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brown);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 3px;
+      transition: color var(--ease);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--turquoise);
+      transition: width var(--ease);
+    }
+
+    .nav-links a:hover { color: var(--brown-dk); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--brown-dk); }
+
+    /* ─── BANNER ─────────────────────────────────────── */
+    .banner {
+      width: 100%;
+      height: 300px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(
+        125deg,
+        #8fa888 0%,
+        #4e9c9c 35%,
+        #7b5535 70%,
+        #c4a882 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.8s ease both;
+    }
+
+    .banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 48px, rgba(255,255,255,0.03) 48px, rgba(255,255,255,0.03) 49px),
+        repeating-linear-gradient(90deg, transparent, transparent 48px, rgba(255,255,255,0.03) 48px, rgba(255,255,255,0.03) 49px);
+    }
+
+    .banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.28) 100%);
+    }
+
+    .banner-text {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+    }
+
+    .banner-text h1 {
+      font-family: var(--ff-display);
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-shadow: 0 2px 28px rgba(0,0,0,0.22);
+    }
+
+    .banner-text p {
+      margin-top: 8px;
+      font-size: 0.76rem;
+      font-weight: 400;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.68);
+    }
+
+    /* ─── ABOUT SECTION — Layout A ───────────────────── */
+    .about-section {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 0;
+      background: var(--white);
+      animation: fadeUp 0.9s ease 0.15s both;
+    }
+
+    /* ── LEFT COLUMN ── */
+    .about-left {
+      background: var(--cream);
+      border-right: 1px solid var(--sand);
+      padding: 72px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Circular photo placeholder */
+    .profile-photo {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #d8cfc4 0%, #bfad96 50%, #a89070 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      /* Decorative ring */
+      box-shadow:
+        0 0 0 6px var(--cream),
+        0 0 0 8px var(--tan);
+    }
+
+    .profile-photo svg {
+      width: 44px;
+      height: 44px;
+      stroke: rgba(255,255,255,0.6);
+    }
+
+    .profile-photo span {
+      font-size: 0.68rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      font-weight: 400;
+    }
+
+    .profile-name {
+      margin-top: 32px;
+      font-family: var(--ff-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--brown-dk);
+      letter-spacing: 0.03em;
+    }
+
+    .profile-title {
+      margin-top: 8px;
+      font-family: var(--ff-display);
+      font-size: 1rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text-soft);
+      line-height: 1.5;
+    }
+
+    /* Decorative divider under name */
+    .profile-divider {
+      margin: 22px auto 0;
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(to right, var(--tan), var(--turquoise));
+    }
+
+    /* Small detail chips */
+    .profile-chips {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      font-weight: 300;
+    }
+
+    .chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--turquoise);
+      flex-shrink: 0;
+    }
+
+    /* ── RIGHT COLUMN ── */
+    .about-right {
+      padding: 72px 72px 72px 76px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--turquoise);
+      margin-bottom: 18px;
+      font-weight: 400;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--turquoise);
+    }
+
+    .about-right h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 400;
+      color: var(--brown-dk);
+      line-height: 1.2;
+      margin-bottom: 28px;
+    }
+
+    .about-right h2 em {
+      font-style: italic;
+      color: var(--brown);
+    }
+
+    .about-right p {
+      font-size: 0.97rem;
+      color: var(--text-soft);
+      line-height: 1.88;
+      max-width: 520px;
+      margin-bottom: 18px;
+    }
+
+    /* Skills / interests list */
+    .skills-heading {
+      margin-top: 10px;
+      margin-bottom: 16px;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 400;
+    }
+
+    .skills-heading::after {
+      content: '';
+      flex: 1;
+      max-width: 48px;
+      height: 1px;
+      background: var(--sage-lt);
+    }
+
+    .skills-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 400px;
+    }
+
+    .skills-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.92rem;
+      color: var(--text-soft);
+      font-weight: 300;
+    }
+
+    .skills-list li::before {
+      content: '';
+      width: 20px;
+      height: 1.5px;
+      background: linear-gradient(to right, var(--turquoise), var(--sage));
+      flex-shrink: 0;
+    }
+
+    /* ─── FOOTER (identical to Home) ─────────────────── */
+    footer {
+      background: var(--brown-dk);
+      padding: 36px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 3px solid var(--turquoise);
+    }
+
+    .footer-left .footer-brand {
+      font-family: var(--ff-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--sand);
+      letter-spacing: 0.03em;
+    }
+
+    .footer-left .footer-brand span { color: var(--turquoise); }
+
+    .footer-left .footer-copy {
+      margin-top: 5px;
+      font-size: 0.76rem;
+      color: #9a7a58;
+      letter-spacing: 0.06em;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    .footer-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9a7a58;
+      text-decoration: none;
+      transition: color var(--ease);
+    }
+
+    .footer-links a:hover { color: var(--turquoise); }
+
+    /* ─── ANIMATIONS ─────────────────────────────────── */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 860px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 18px; }
+      .nav-links a { font-size: 0.72rem; }
+
+      .about-section {
+        grid-template-columns: 1fr;
+      }
+
+      .about-left {
+        padding: 52px 24px;
+        border-right: none;
+        border-bottom: 1px solid var(--sand);
+      }
+
+      .profile-photo {
+        width: 220px;
+        height: 220px;
+      }
+
+      .about-right {
+        padding: 48px 24px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+        padding: 32px 20px;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ 1. NAVIGATION ════════════════════════════════ -->
+  <nav>
+    <a class="nav-logo" href="index.html">Alexi Valadez<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══ 2. BANNER (100% wide, 300px tall) ════════════ -->
+  <div class="banner">
+    <div class="banner-text">
+      <h1>About Me</h1>
+      <p>Photographer &nbsp;&middot;&nbsp; Student &nbsp;&middot;&nbsp; Explorer</p>
+    </div>
+  </div>
+
+  <!-- ══ 3. ABOUT — Layout A ═══════════════════════════ -->
+  <!--     Photo LEFT · Bio RIGHT                        -->
+  <section class="about-section">
+
+    <!-- Left column: circular photo + name + title -->
+    <div class="about-left">
+
+      <!-- Circular 300×300 placeholder -->
+      <div class="profile-photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Photo</span>
+      </div>
+
+      <div class="profile-name">Alexi Valadez</div>
+      <div class="profile-title">
+        Your Major<br>
+        <span style="font-size:0.88rem; font-style:normal; color:var(--tan);">Your College / University</span>
+      </div>
+      <div class="profile-divider"></div>
+
+      <!-- Small detail chips -->
+      <div class="profile-chips">
+        <div class="chip"><div class="chip-dot"></div>Based in the American West</div>
+        <div class="chip"><div class="chip-dot"></div>Available for commissions</div>
+        <div class="chip"><div class="chip-dot"></div>Open to collaboration</div>
+      </div>
+
+    </div>
+
+    <!-- Right column: heading + bio + skills list -->
+    <div class="about-right">
+
+      <div class="eyebrow">My Story</div>
+
+      <h2>Hello, I am <em>Alexi Valadez.</em></h2>
+
+      <p>
+        I'm a college student and photographer with a deep love for the natural
+        world and the stories that light can tell. Growing up surrounded by wide
+        open landscapes shaped the way I see — unhurried, observant, always
+        looking for the frame within the frame. My camera is how I make sense of
+        the world around me.
+      </p>
+      <p>
+        When I'm not shooting, I'm studying, exploring trails, or experimenting
+        with new editing techniques. This site is my corner of the internet —
+        part portfolio, part blog, part small business — and I'm glad you found it.
+        Every image here was made with intention and a whole lot of heart.
+      </p>
+
+      <div class="skills-heading">Skills &amp; Interests</div>
+
+      <ul class="skills-list">
+        <li>Landscape &amp; Nature Photography</li>
+        <li>Adobe Lightroom &amp; Photo Editing</li>
+        <li>Hiking &amp; Outdoor Exploration</li>
+        <li>Graphic Design</li>
+        <li>Music &amp; Creative Writing</li>
+      </ul>
+
+    </div>
+  </section>
+
+  <!-- ══ 4. FOOTER ═════════════════════════════════════ -->
+  <footer>
+    <div class="footer-left">
+      <div class="footer-brand">Alexi Valadez<span>.</span></div>
+      <p class="footer-copy">&copy; 2025 Alexi Valadez. All rights reserved.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>

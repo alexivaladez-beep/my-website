@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Alexi Valadez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Design Tokens (identical across all pages) ── */
+    :root {
+      --cream:      #f4ede0;
+      --sand:       #e0d0b8;
+      --tan:        #c4a882;
+      --brown:      #7b5535;
+      --brown-dk:   #4a3220;
+      --sage:       #8fa888;
+      --sage-lt:    #b8cdb0;
+      --turquoise:  #4e9c9c;
+      --turq-dk:    #336868;
+      --white:      #faf7f2;
+      --text-main:  #3a2b1c;
+      --text-soft:  #7a6248;
+
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-body:    'Outfit', sans-serif;
+      --nav-h:      64px;
+      --ease:       0.3s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-body);
+      background: var(--white);
+      color: var(--text-main);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVIGATION (identical to all pages) ────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(244, 237, 224, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 56px;
+    }
+
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.45rem;
+      font-weight: 400;
+      color: var(--brown-dk);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+
+    .nav-logo span { color: var(--turquoise); }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 38px;
+    }
+
+    .nav-links a {
+      font-family: var(--ff-body);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brown);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 3px;
+      transition: color var(--ease);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--turquoise);
+      transition: width var(--ease);
+    }
+
+    .nav-links a:hover { color: var(--brown-dk); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--brown-dk); }
+
+    /* ─── BANNER ─────────────────────────────────────── */
+    .banner {
+      width: 100%;
+      height: 260px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(
+        140deg,
+        #336868 0%,
+        #4e9c9c 30%,
+        #7b5535 65%,
+        #4a3220 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.8s ease both;
+    }
+
+    .banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 48px, rgba(255,255,255,0.03) 48px, rgba(255,255,255,0.03) 49px),
+        repeating-linear-gradient(90deg, transparent, transparent 48px, rgba(255,255,255,0.03) 48px, rgba(255,255,255,0.03) 49px);
+    }
+
+    .banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.3) 100%);
+    }
+
+    .banner-text {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+    }
+
+    .banner-text h1 {
+      font-family: var(--ff-display);
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-shadow: 0 2px 28px rgba(0,0,0,0.22);
+    }
+
+    .banner-text p {
+      margin-top: 8px;
+      font-size: 0.76rem;
+      font-weight: 400;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.68);
+    }
+
+    /* ─── TWO-COLUMN CONTACT SECTION ─────────────────── */
+    .contact-section {
+      display: grid;
+      grid-template-columns: 55% 45%;
+      min-height: 580px;
+      animation: fadeUp 0.9s ease 0.15s both;
+    }
+
+    /* ══ LEFT — Form (55%) ══════════════════════════════ */
+    .form-col {
+      padding: 72px 64px 72px 72px;
+      background: var(--white);
+      border-right: 1px solid var(--sand);
+    }
+
+    .col-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--turquoise);
+      margin-bottom: 14px;
+      font-weight: 400;
+    }
+
+    .col-eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--turquoise);
+    }
+
+    .col-heading {
+      font-family: var(--ff-display);
+      font-size: clamp(1.8rem, 2.6vw, 2.6rem);
+      font-weight: 400;
+      color: var(--brown-dk);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .col-subtext {
+      font-size: 0.92rem;
+      color: var(--text-soft);
+      margin-bottom: 40px;
+      max-width: 420px;
+      line-height: 1.75;
+    }
+
+    /* Form elements */
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brown);
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      background: var(--cream);
+      border: 1px solid var(--sand);
+      border-radius: 6px;
+      padding: 13px 16px;
+      font-family: var(--ff-body);
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color var(--ease), box-shadow var(--ease), background var(--ease);
+      -webkit-appearance: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      border-color: var(--turquoise);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(78, 156, 156, 0.12);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #b8a898;
+      font-weight: 300;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 148px;
+      line-height: 1.7;
+    }
+
+    .btn-send {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 6px;
+      padding: 14px 38px;
+      background: var(--turquoise);
+      color: #fff;
+      font-family: var(--ff-body);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border: 1.5px solid var(--turquoise);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background var(--ease), border-color var(--ease), transform var(--ease);
+    }
+
+    .btn-send svg {
+      width: 14px;
+      height: 14px;
+      stroke: #fff;
+      transition: transform var(--ease);
+    }
+
+    .btn-send:hover {
+      background: var(--turq-dk);
+      border-color: var(--turq-dk);
+      transform: translateY(-1px);
+    }
+
+    .btn-send:hover svg {
+      transform: translateX(3px);
+    }
+
+    /* ══ RIGHT — Info + Photo (45%) ═════════════════════ */
+    .info-col {
+      padding: 72px 56px 72px 64px;
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Contact details list */
+    .contact-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 4px;
+      margin-bottom: 44px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--sand);
+    }
+
+    .contact-item:first-child {
+      border-top: 1px solid var(--sand);
+    }
+
+    .contact-emoji {
+      font-size: 1.15rem;
+      line-height: 1;
+      margin-top: 2px;
+      flex-shrink: 0;
+      width: 24px;
+      text-align: center;
+    }
+
+    .contact-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .contact-detail-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 400;
+    }
+
+    .contact-detail-value {
+      font-size: 0.92rem;
+      color: var(--text-main);
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    .contact-detail-value a {
+      color: var(--turquoise);
+      text-decoration: none;
+      transition: color var(--ease);
+    }
+
+    .contact-detail-value a:hover {
+      color: var(--turq-dk);
+    }
+
+    /* Photo placeholder — 300×250 */
+    .photo-placeholder {
+      width: 100%;
+      max-width: 300px;
+      height: 250px;
+      background: linear-gradient(145deg, #d8cfc4 0%, #bfad96 55%, #a89070 100%);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(90, 58, 32, 0.1);
+    }
+
+    .photo-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 10px;
+      border: 1px dashed rgba(255,255,255,0.35);
+      border-radius: 4px;
+    }
+
+    .photo-placeholder svg {
+      position: relative;
+      z-index: 2;
+      width: 36px;
+      height: 36px;
+      stroke: rgba(255,255,255,0.6);
+    }
+
+    .photo-placeholder span {
+      position: relative;
+      z-index: 2;
+      font-size: 0.68rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      font-weight: 400;
+    }
+
+    /* ─── FOOTER (identical to all pages) ───────────── */
+    footer {
+      background: var(--brown-dk);
+      padding: 36px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 3px solid var(--turquoise);
+    }
+
+    .footer-left .footer-brand {
+      font-family: var(--ff-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--sand);
+      letter-spacing: 0.03em;
+    }
+
+    .footer-left .footer-brand span { color: var(--turquoise); }
+
+    .footer-left .footer-copy {
+      margin-top: 5px;
+      font-size: 0.76rem;
+      color: #9a7a58;
+      letter-spacing: 0.06em;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    .footer-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9a7a58;
+      text-decoration: none;
+      transition: color var(--ease);
+    }
+
+    .footer-links a:hover { color: var(--turquoise); }
+
+    /* ─── ANIMATIONS ─────────────────────────────────── */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 860px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 0.72rem; }
+
+      .contact-section {
+        grid-template-columns: 1fr;
+      }
+
+      .form-col {
+        padding: 52px 24px;
+        border-right: none;
+        border-bottom: 1px solid var(--sand);
+      }
+
+      .info-col {
+        padding: 48px 24px 56px;
+        align-items: flex-start;
+      }
+
+      .photo-placeholder {
+        max-width: 100%;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+        padding: 32px 20px;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ 1. NAVIGATION ════════════════════════════════ -->
+  <nav>
+    <a class="nav-logo" href="index.html">Alexi Valadez<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══ 2. BANNER (100% wide, 260px tall) ════════════ -->
+  <div class="banner">
+    <div class="banner-text">
+      <h1>Contact Me</h1>
+      <p>Let's Connect &nbsp;&middot;&nbsp; Work Together &nbsp;&middot;&nbsp; Say Hello</p>
+    </div>
+  </div>
+
+  <!-- ══ 3. TWO-COLUMN SECTION ═══════════════════════ -->
+  <section class="contact-section">
+
+    <!-- ── LEFT: Contact Form (55%) ─────────────────── -->
+    <div class="form-col">
+      <div class="col-eyebrow">Get in Touch</div>
+      <h2 class="col-heading">Send a Message</h2>
+      <p class="col-subtext">
+        Have a project in mind, want to book a session, or just want to say hi?
+        Fill out the form below and I'll get back to you as soon as I can.
+      </p>
+
+      <form action="#" method="POST">
+
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Jane Smith"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="jane@example.com"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Tell me about your project, session idea, or anything else on your mind..."
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn-send">
+          Send Message
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/>
+          </svg>
+        </button>
+
+      </form>
+    </div>
+
+    <!-- ── RIGHT: Contact Info + Photo (45%) ─────────── -->
+    <div class="info-col">
+      <div class="col-eyebrow">Find Me</div>
+      <h2 class="col-heading">Contact Info</h2>
+
+      <ul class="contact-list">
+
+        <li class="contact-item">
+          <div class="contact-emoji">📧</div>
+          <div class="contact-detail">
+            <span class="contact-detail-label">Email</span>
+            <span class="contact-detail-value">
+              <a href="mailto:your@email.com">your@email.com</a>
+            </span>
+          </div>
+        </li>
+
+        <li class="contact-item">
+          <div class="contact-emoji">📍</div>
+          <div class="contact-detail">
+            <span class="contact-detail-label">Location</span>
+            <span class="contact-detail-value">Pahrump, NV &amp; Phoenix, AZ</span>
+          </div>
+        </li>
+
+        <li class="contact-item">
+          <div class="contact-emoji">📸</div>
+          <div class="contact-detail">
+            <span class="contact-detail-label">Instagram</span>
+            <span class="contact-detail-value">
+              <a href="https://instagram.com/shotsby_alexijean" target="_blank" rel="noopener">@shotsby_alexijean</a>
+            </span>
+          </div>
+        </li>
+
+      </ul>
+
+      <!-- Photo placeholder 300×250 -->
+      <div class="photo-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span>Photo</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══ 4. FOOTER ═════════════════════════════════════ -->
+  <footer>
+    <div class="footer-left">
+      <div class="footer-brand">Alexi Valadez<span>.</span></div>
+      <p class="footer-copy">&copy; 2025 Alexi Valadez. All rights reserved.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>

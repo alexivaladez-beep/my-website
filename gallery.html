@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Alexi Valadez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Design Tokens (identical across all pages) ── */
+    :root {
+      --cream:      #f4ede0;
+      --sand:       #e0d0b8;
+      --tan:        #c4a882;
+      --brown:      #7b5535;
+      --brown-dk:   #4a3220;
+      --sage:       #8fa888;
+      --sage-lt:    #b8cdb0;
+      --turquoise:  #4e9c9c;
+      --turq-dk:    #336868;
+      --white:      #faf7f2;
+      --text-main:  #3a2b1c;
+      --text-soft:  #7a6248;
+
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-body:    'Outfit', sans-serif;
+      --nav-h:      64px;
+      --ease:       0.3s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-body);
+      background: var(--white);
+      color: var(--text-main);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVIGATION (identical to all pages) ────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(244, 237, 224, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 56px;
+    }
+
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.45rem;
+      font-weight: 400;
+      color: var(--brown-dk);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+
+    .nav-logo span { color: var(--turquoise); }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 38px;
+    }
+
+    .nav-links a {
+      font-family: var(--ff-body);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brown);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 3px;
+      transition: color var(--ease);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--turquoise);
+      transition: width var(--ease);
+    }
+
+    .nav-links a:hover { color: var(--brown-dk); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--brown-dk); }
+
+    /* ─── BANNER ─────────────────────────────────────── */
+    .banner {
+      width: 100%;
+      height: 300px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(
+        128deg,
+        #5e7a58 0%,
+        #8fa888 28%,
+        #4e9c9c 56%,
+        #7b5535 82%,
+        #c4a882 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.8s ease both;
+    }
+
+    .banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 48px, rgba(255,255,255,0.03) 48px, rgba(255,255,255,0.03) 49px),
+        repeating-linear-gradient(90deg, transparent, transparent 48px, rgba(255,255,255,0.03) 48px, rgba(255,255,255,0.03) 49px);
+    }
+
+    .banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.28) 100%);
+    }
+
+    .banner-text {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+    }
+
+    .banner-text h1 {
+      font-family: var(--ff-display);
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-shadow: 0 2px 28px rgba(0,0,0,0.22);
+    }
+
+    .banner-text p {
+      margin-top: 8px;
+      font-size: 0.76rem;
+      font-weight: 400;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.68);
+    }
+
+    /* ─── INTRO ──────────────────────────────────────── */
+    .intro {
+      background: var(--cream);
+      border-bottom: 1px solid var(--sand);
+      padding: 48px 56px;
+      text-align: center;
+      animation: fadeUp 0.8s ease 0.1s both;
+    }
+
+    .intro-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    .intro-label::before,
+    .intro-label::after {
+      content: '';
+      width: 44px;
+      height: 1px;
+      background: var(--sage-lt);
+    }
+
+    .intro h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(1.3rem, 2vw, 1.75rem);
+      font-weight: 400;
+      color: var(--brown-dk);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.45;
+    }
+
+    .intro h2 em {
+      font-style: italic;
+      color: var(--brown);
+    }
+
+    /* ─── GALLERY GRID ───────────────────────────────── */
+    .gallery-section {
+      padding: 64px 56px 88px;
+      background: var(--white);
+      animation: fadeUp 0.9s ease 0.2s both;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    /* ── Individual gallery item ── */
+    .gallery-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* Image wrapper — handles overflow clip for zoom */
+    .img-wrap {
+      width: 100%;
+      aspect-ratio: 1 / 1;   /* uniform square cells */
+      overflow: hidden;
+      position: relative;
+      background: #ccc5b8;
+      cursor: pointer;
+    }
+
+    /* The placeholder "image" block */
+    .img-block {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+    }
+
+    /* Zoom on hover — applied to the inner block so overflow:hidden clips it */
+    .img-wrap:hover .img-block {
+      transform: scale(1.07);
+    }
+
+    /* Unique gradient per image — western palette */
+    .gallery-item:nth-child(1) .img-block { background: linear-gradient(145deg, #c4a882, #7b5535); }
+    .gallery-item:nth-child(2) .img-block { background: linear-gradient(145deg, #6eadad, #336868); }
+    .gallery-item:nth-child(3) .img-block { background: linear-gradient(145deg, #a8be9e, #5e7a58); }
+    .gallery-item:nth-child(4) .img-block { background: linear-gradient(145deg, #d4bc9a, #8a6030); }
+    .gallery-item:nth-child(5) .img-block { background: linear-gradient(145deg, #8fbfbf, #3a6e6e); }
+    .gallery-item:nth-child(6) .img-block { background: linear-gradient(145deg, #c8b098, #6e4828); }
+    .gallery-item:nth-child(7) .img-block { background: linear-gradient(145deg, #b0c8a0, #4e6e40); }
+    .gallery-item:nth-child(8) .img-block { background: linear-gradient(145deg, #d8c0a0, #9a7248); }
+    .gallery-item:nth-child(9) .img-block { background: linear-gradient(145deg, #78b0b0, #2e5a5a); }
+
+    /* Hover overlay — dark tint + label fade in */
+    .img-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(30, 16, 6, 0);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.35s ease;
+      z-index: 2;
+    }
+
+    .img-wrap:hover .img-overlay {
+      background: rgba(30, 16, 6, 0.32);
+    }
+
+    .overlay-icon {
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s ease 0.05s, transform 0.3s ease 0.05s;
+    }
+
+    .img-wrap:hover .overlay-icon {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .overlay-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: rgba(255,255,255,0.9);
+    }
+
+    /* IMAGE label + number (default, always visible) */
+    .img-label {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .img-label-number {
+      font-size: 1.6rem;
+      font-family: var(--ff-display);
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      line-height: 1;
+    }
+
+    .img-label-text {
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      font-weight: 400;
+    }
+
+    /* Caption below image */
+    .img-caption {
+      padding: 12px 4px 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-title {
+      font-family: var(--ff-display);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--brown-dk);
+      line-height: 1.2;
+    }
+
+    .caption-sub {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      letter-spacing: 0.06em;
+      font-weight: 300;
+    }
+
+    /* ─── FOOTER (identical to all pages) ───────────── */
+    footer {
+      background: var(--brown-dk);
+      padding: 36px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 3px solid var(--turquoise);
+    }
+
+    .footer-left .footer-brand {
+      font-family: var(--ff-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--sand);
+      letter-spacing: 0.03em;
+    }
+
+    .footer-left .footer-brand span { color: var(--turquoise); }
+
+    .footer-left .footer-copy {
+      margin-top: 5px;
+      font-size: 0.76rem;
+      color: #9a7a58;
+      letter-spacing: 0.06em;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    .footer-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9a7a58;
+      text-decoration: none;
+      transition: color var(--ease);
+    }
+
+    .footer-links a:hover { color: var(--turquoise); }
+
+    /* ─── ANIMATIONS ─────────────────────────────────── */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 860px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 0.72rem; }
+
+      .intro { padding: 40px 20px; }
+      .gallery-section { padding: 48px 20px 64px; }
+      .grid { gap: 10px; }
+    }
+
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+
+      footer {
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+        padding: 32px 20px;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ 1. NAVIGATION ════════════════════════════════ -->
+  <nav>
+    <a class="nav-logo" href="index.html">Alexi Valadez<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══ 2. BANNER (100% wide, 300px tall) ════════════ -->
+  <div class="banner">
+    <div class="banner-text">
+      <h1>Gallery</h1>
+      <p>Nature &nbsp;&middot;&nbsp; Landscape &nbsp;&middot;&nbsp; Life in the West</p>
+    </div>
+  </div>
+
+  <!-- ══ 3. INTRO LINE ════════════════════════════════ -->
+  <div class="intro">
+    <div class="intro-label">The Collection</div>
+    <h2>A collection of <em>nature, landscape, and life</em> seen through my lens.</h2>
+  </div>
+
+  <!-- ══ 4. GALLERY GRID — 3 cols × 3 rows ═══════════ -->
+  <section class="gallery-section">
+    <div class="grid">
+
+      <!-- Image 1 -->
+      <div class="gallery-item">
+        <div class="img-wrap">
+          <div class="img-block">
+            <div class="img-overlay">
+              <div class="overlay-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+                </svg>
+              </div>
+            </div>
+            <div class="img-label">
+              <span class="img-label-number">01</span>
+              <span class="img-label-text">Image</span>
+            </div>
+          </div>
+        </div>
+        <div class="img-caption">
+          <span class="caption-title">Desert at Dawn</span>
+          <span class="caption-sub">Landscape &nbsp;·&nbsp; Nevada</span>
+        </div>
+      </div>
+
+      <!-- Image 2 -->
+      <div class="gallery-item">
+        <div class="img-wrap">
+          <div class="img-block">
+            <div class="img-overlay">
+              <div class="overlay-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+                </svg>
+              </div>
+            </div>
+            <div class="img-label">
+              <span class="img-label-number">02</span>
+              <span class="img-label-text">Image</span>
+            </div>
+          </div>
+        </div>
+        <div class="img-caption">
+          <span class="caption-title">Still Water</span>
+          <span class="caption-sub">Nature &nbsp;·&nbsp; Arizona</span>
+        </div>
+      </div>
+
+      <!-- Image 3 -->
+      <div class="gallery-item">
+        <div class="img-wrap">
+          <div class="img-block">
+            <div class="img-overlay">
+              <div class="overlay-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+                </svg>
+              </div>
+            </div>
+            <div class="img-label">
+              <span class="img-label-number">03</span>
+              <span class="img-label-text">Image</span>
+            </div>
+          </div>
+        </div>
+        <div class="img-caption">
+          <span class="caption-title">Sage After Rain</span>
+          <span class="caption-sub">Nature &nbsp;·&nbsp; High Desert</span>
+        </div>
+      </div>
+
+      <!-- Image 4 -->
+      <div class="gallery-item">
+        <div class="img-wrap">
+          <div class="img-block">
+            <div class="img-overlay">
+              <div class="overlay-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+                </svg>
+              </div>
+            </div>
+            <div class="img-label">
+              <span class="img-label-number">04</span>
+              <span class="img-label-text">Image</span>
+            </div>
+          </div>
+        </div>
+        <div class="img-caption">
+          <span class="caption-title">Canyon Wall</span>
+          <span class="caption-sub">Landscape &nbsp;·&nbsp; Utah</span>
+        </div>
+      </div>
+
+      <!-- Image 5 -->
+      <div class="gallery-item">
+        <div class="img-wrap">
+          <div class="img-block">
+            <div class="img-overlay">
+              <div class="overlay-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+                </svg>
+              </div>
+            </div>
+            <div class="img-label">
+              <span class="img-label-number">05</span>
+              <span class="img-label-text">Image</span>
+            </div>
+          </div>
+        </div>
+        <div class="img-caption">
+          <span class="caption-title">Turquoise Sky</span>
+          <span class="caption-sub">Landscape &nbsp;·&nbsp; New Mexico</span>
+        </div>
+      </div>
+
+      <!-- Image 6 -->
+      <div class="gallery-item">
+        <div class="img-wrap">
+          <div class="img-block">
+            <div class="img-overlay">
+              <div class="overlay-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+                </svg>
+              </div>
+            </div>
+            <div class="img-label">
+              <span class="img-label-number">06</span>
+              <span class="img-label-text">Image</span>
+            </div>
+          </div>
+        </div>
+        <div class="img-caption">
+          <span class="caption-title">Warm Horizon</span>
+          <span class="caption-sub">Landscape &nbsp;·&nbsp; Pahrump, NV</span>
+        </div>
+      </div>
+
+      <!-- Image 7 -->
+      <div class="gallery-item">
+        <div class="img-wrap">
+          <div class="img-block">
+            <div class="img-overlay">
+              <div class="overlay-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+                </svg>
+              </div>
+            </div>
+            <div class="img-label">
+              <span class="img-label-number">07</span>
+              <span class="img-label-text">Image</span>
+            </div>
+          </div>
+        </div>
+        <div class="img-caption">
+          <span class="caption-title">Wild Grass</span>
+          <span class="caption-sub">Nature &nbsp;·&nbsp; Open Range</span>
+        </div>
+      </div>
+
+      <!-- Image 8 -->
+      <div class="gallery-item">
+        <div class="img-wrap">
+          <div class="img-block">
+            <div class="img-overlay">
+              <div class="overlay-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+                </svg>
+              </div>
+            </div>
+            <div class="img-label">
+              <span class="img-label-number">08</span>
+              <span class="img-label-text">Image</span>
+            </div>
+          </div>
+        </div>
+        <div class="img-caption">
+          <span class="caption-title">Dust &amp; Light</span>
+          <span class="caption-sub">Landscape &nbsp;·&nbsp; Phoenix, AZ</span>
+        </div>
+      </div>
+
+      <!-- Image 9 -->
+      <div class="gallery-item">
+        <div class="img-wrap">
+          <div class="img-block">
+            <div class="img-overlay">
+              <div class="overlay-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+                </svg>
+              </div>
+            </div>
+            <div class="img-label">
+              <span class="img-label-number">09</span>
+              <span class="img-label-text">Image</span>
+            </div>
+          </div>
+        </div>
+        <div class="img-caption">
+          <span class="caption-title">Last Light</span>
+          <span class="caption-sub">Landscape &nbsp;·&nbsp; Nevada</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ 5. FOOTER ═════════════════════════════════════ -->
+  <footer>
+    <div class="footer-left">
+      <div class="footer-brand">Alexi Valadez<span>.</span></div>
+      <p class="footer-copy">&copy; 2025 Alexi Valadez. All rights reserved.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>
